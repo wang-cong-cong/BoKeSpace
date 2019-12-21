@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.CheckItemDao">
+    <!--添加检查项-->
+    <insert id="add" parameterType="CheckItem">
+    insert into t_checkitem(code,name,sex,age,price,type,remark,attention)
+    values (#{code},#{name},#{sex},#{age},#{price},#{type},#{remark},#{attention})
+    </insert>
+
+    <!--检查项分页查询-->
+    <select id="selectByCondition" parameterType="string" resultType="CheckItem">
+        select * from t_checkitem
+        <if test="value!=null and value.length>0">
+            where code = #{value} or name = #{value}
+        </if>
+    </select>
+
+    <!--删除检查项-->
+    <delete id="deleteById" parameterType="integer">
+        delete from t_checkitem where id = #{id}
+    </delete>
+
+    <!--查询检查项是否与检查组关联-->
+    <select id="findCountByCheckItemId" parameterType="integer" resultType="long">
+        select cunt(*) from t_checkgroup_checkitem where checkitem_id = #{id};
+    </select>
+</mapper>
