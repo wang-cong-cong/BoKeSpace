@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 /**
  * @author cong
@@ -24,7 +26,7 @@ public class CheckItemController {
 
     /**
      * 添加检查项
-     * */
+     */
     @RequestMapping("/add.do")
     public Result add(@RequestBody CheckItem checkItem) {
         try {
@@ -37,25 +39,72 @@ public class CheckItemController {
 
     /**
      * 检查项分页
-     * */
+     */
     @RequestMapping("/findPage.do")
     public PageResult findPage(@RequestBody QueryPageBean queryPageBean) {
-        PageResult pageResult = checkItemService.pageQuery(queryPageBean.getCurrentPage(),queryPageBean.getPageSize(),queryPageBean.getQueryString());
+        PageResult pageResult = checkItemService.pageQuery(queryPageBean);
         return pageResult;
     }
 
     /**
      * 删除检查项
-     * */
+     */
     @RequestMapping("/delete.do")
-    public Result delete(Integer id){
+    public Result delete(Integer id) {
         try {
             checkItemService.delete(id);
         } catch (RuntimeException e) {
-            return new Result(false,e.getMessage());
-        }catch (Exception e) {
-            return new Result(false,MessageConstant.DELETE_CHECKGROUP_FAIL);
+            return new Result(false, e.getMessage());
+        } catch (Exception e) {
+            return new Result(false, MessageConstant.DELETE_CHECKGROUP_FAIL);
         }
         return new Result(true, MessageConstant.DELETE_CHECKITEM_SUCCESS);
     }
+
+    /**
+     * 编辑检查项
+     */
+    @RequestMapping("/edit.do")
+    public Result edit(@RequestBody CheckItem checkItem) {
+        try {
+            //编辑成功
+            checkItemService.edit(checkItem);
+        } catch (Exception e) {
+            //编辑失败，返回错误信息
+            return new Result(false, MessageConstant.EDIT_CHECKGROUP_FAIL);
+        }
+        //返回成功信息
+        return new Result(true, MessageConstant.EDIT_CHECKGROUP_SUCCESS);
+    }
+
+    /**
+     * 编辑页面回显数据
+     */
+    @RequestMapping("/findById.do")
+    public Result findById(Integer id) {
+        try {
+            //回显数据成功
+            CheckItem checkItem = checkItemService.findById(id);
+            //返回成功数据
+            return new Result(true, MessageConstant.QUERY_CHECKITEM_SUCCESS, checkItem);
+        } catch (Exception e) {
+            //失败返回错误信息
+            return new Result(false, MessageConstant.QUERY_CHECKITEM_FAIL);
+        }
+    }
+
+    /**
+     * 查询全部检查项
+     *
+     * @return
+     */
+    @RequestMapping("/findAll.do")
+    public Result findAll() {
+        List<CheckItem> list = checkItemService.findAll();
+        if (list != null && list.size() != 0) {
+            return new Result(true, MessageConstant.QUERY_CHECKITEM_SUCCESS, list);
+        }
+        return new Result(false, MessageConstant.QUERY_CHECKITEM_FAIL);
+    }
+
 }

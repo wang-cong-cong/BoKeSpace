@@ -4,6 +4,8 @@ import com.github.pagehelper.Page;
 import com.itheima.domain.CheckItem;
 import com.itheima.entity.PageResult;
 
+import java.util.List;
+
 
 /**
  * @author cong
@@ -20,4 +22,10 @@ public interface CheckItemDao {
     long findCountByCheckItemId(Integer id);
     //删除检查项
     void deleteById(Integer id);
+
+    void edit(CheckItem checkItem);
+
+    CheckItem findById(Integer id);
+
+    List<CheckItem> findAll();
 }

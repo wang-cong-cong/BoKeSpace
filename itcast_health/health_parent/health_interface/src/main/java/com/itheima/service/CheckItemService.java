@@ -2,6 +2,9 @@ package com.itheima.service;
 
 import com.itheima.domain.CheckItem;
 import com.itheima.entity.PageResult;
+import com.itheima.entity.QueryPageBean;
+
+import java.util.List;
 
 
 /**
@@ -11,7 +14,13 @@ public interface CheckItemService {
 
     public void add(CheckItem checkItem);
 
-    PageResult pageQuery(Integer currentPage, Integer pageSize, String queryString);
+    PageResult pageQuery(QueryPageBean queryPageBean);
 
     void delete(Integer id);
+
+    void edit(CheckItem checkItem);
+
+    CheckItem findById(Integer id);
+
+    List<CheckItem> findAll();
 }

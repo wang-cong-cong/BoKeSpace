@@ -7,9 +7,12 @@ import com.github.pagehelper.PageHelper;
 import com.itheima.dao.CheckItemDao;
 import com.itheima.domain.CheckItem;
 import com.itheima.entity.PageResult;
+import com.itheima.entity.QueryPageBean;
 import com.itheima.service.CheckItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 /**
@@ -27,20 +30,36 @@ public class CheckItemServiceImpl implements CheckItemService {
     }
 
     @Override
-    public PageResult pageQuery(Integer currentPage, Integer pageSize, String queryString) {
+    public PageResult pageQuery(QueryPageBean queryPageBean) {
         //调用分页助手
-        PageHelper.startPage(currentPage, pageSize);
-        Page<CheckItem> page = checkItemDao.selectByCondition(queryString);
+        PageHelper.startPage(queryPageBean.getCurrentPage(), queryPageBean.getPageSize());
+        Page<CheckItem> page = checkItemDao.selectByCondition(queryPageBean.getQueryString());
         return new PageResult(page.getTotal(), page.getResult());
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer id)throws RuntimeException {
         long count = checkItemDao.findCountByCheckItemId(id);
+        //判断检查项是否已关联检查组
         if (count > 0){
             //当前检查项已经被引用，不能被删除
-            throw new RuntimeException("该检查项已被引用，不能删除");
+            throw  new RuntimeException("项目已引用，无法删除");
         }
         checkItemDao.deleteById(id);
+    }
+
+    @Override
+    public void edit(CheckItem checkItem) {
+        checkItemDao.edit(checkItem);
+    }
+
+    @Override
+    public CheckItem findById(Integer id) {
+        return checkItemDao.findById(id);
+    }
+
+    @Override
+    public List<CheckItem> findAll() {
+        return checkItemDao.findAll() ;
     }
 }
