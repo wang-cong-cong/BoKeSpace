@@ -25,4 +25,5 @@ public interface CheckGroupDao {
 
     void edit(CheckGroup checkGroup);
 
+    void delete(Integer id);
 }

@@ -411,6 +411,20 @@
                 },
                 // 删除
                 handleDelete(row) {
+                    this.$confirm("确定要删除当前记录么？","提示",{type:"warning"}).then(()=>{
+                        //发送ajax请求删除
+                        axios.get("/checkGroup/delete.do?id="+row.id).then((response)=>{
+                            if (response.data.flag){
+                                this.$message({
+                                    message:response.data.message,
+                                    type:'success'
+                                });
+                                    this.findPage()
+                            }else{
+                                this.$message.error(response.data.message)
+                            }
+                        })
+                    })
                 },
                 //查询分页
                 query(){

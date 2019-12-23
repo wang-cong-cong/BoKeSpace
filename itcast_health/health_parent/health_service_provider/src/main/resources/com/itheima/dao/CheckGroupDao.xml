@@ -58,4 +58,8 @@
         </set>
         where id = #{id}
     </update>
+    <!--根据id删除检查项-->
+    <delete id="delete" parameterType="integer">
+        delete from t_checkgroup where id = #{id}
+    </delete>
 </mapper>

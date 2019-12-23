@@ -81,8 +81,23 @@ public class CheckGroupController {
         try {
             checkGroupService.edit(checkGroup,checkItemIds);
         } catch (Exception e) {
-            return new Result(false,MessageConstant.ADD_CHECKGROUP_FAIL);
+            return new Result(false,MessageConstant.EDIT_CHECKGROUP_FAIL);
         }
-        return new Result(true,MessageConstant.ADD_CHECKGROUP_SUCCESS);
+        return new Result(true,MessageConstant.EDIT_CHECKGROUP_SUCCESS);
+    }
+
+    /**
+     * 删除检查组
+     * */
+    @RequestMapping("/delete.do")
+    public Result delete(Integer id){
+        try {
+            checkGroupService.delete(id);
+        } catch (RuntimeException r){
+         return new Result(false,MessageConstant.DELETE_CHECKGROUP_FAIL+",请先移除关联检查项");
+        }catch (Exception e) {
+            return new Result(false,MessageConstant.DELETE_CHECKGROUP_FAIL);
+        }
+        return new Result(true,MessageConstant.DELETE_CHECKGROUP_SUCCESS);
     }
 }

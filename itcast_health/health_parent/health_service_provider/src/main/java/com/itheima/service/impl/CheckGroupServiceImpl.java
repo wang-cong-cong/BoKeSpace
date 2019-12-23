@@ -75,7 +75,15 @@ public class CheckGroupServiceImpl implements CheckGroupService {
         checkGroupDao.edit(checkGroup);
     }
 
-    //在中间表添加数据，建立检查组和检查项之间的关系
+    /**
+     * 删除检查组
+     * */
+    @Override
+    public void delete(Integer id) {
+        checkGroupDao.delete(id);
+    }
+
+    //创建建立检查组和检查项之间关系的方法
     public void setCheckGroupAndCheckItem(Integer checkGroupId, Integer[] checkItemIds) {
         if (checkItemIds != null && checkItemIds.length > 0) {
             for (Integer checkItemId : checkItemIds) {
