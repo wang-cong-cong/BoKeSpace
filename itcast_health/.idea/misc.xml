@@ -12,10 +12,6 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/health_parent/pom.xml" />
-        <option value="$PROJECT_DIR$/health_parent/health_common/target/maven-archiver/pom.properties" />
-        <option value="$PROJECT_DIR$/health_parent/health_backend/target/maven-archiver/pom.properties" />
-        <option value="$PROJECT_DIR$/health_parent/health_interface/target/maven-archiver/pom.properties" />
-        <option value="$PROJECT_DIR$/health_parent/health_service_provider/target/maven-archiver/pom.properties" />
       </list>
     </option>
   </component>

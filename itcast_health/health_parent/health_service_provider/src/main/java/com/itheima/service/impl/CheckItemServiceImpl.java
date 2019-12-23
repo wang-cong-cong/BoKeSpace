@@ -1,7 +1,6 @@
 package com.itheima.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.alibaba.dubbo.container.page.PageHandler;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.itheima.dao.CheckItemDao;
