@@ -12,7 +12,7 @@ import java.util.List;
 public interface CheckGroupService {
     public void add(CheckGroup checkGroup, Integer[] checkGroupIds);
 
-    PageResult findAll(Integer currentPage, Integer pageSize, String queryString);
+    PageResult findAllByPlaceholder(Integer currentPage, Integer pageSize, String queryString);
 
     CheckGroup findById(Integer id);
 
@@ -20,5 +20,9 @@ public interface CheckGroupService {
 
     void edit(CheckGroup checkGroup, Integer[] checkItemIds);
 
-    void delete(Integer id);
+    void deleteById(Integer id);
+
+    List<CheckGroup> findAll();
+
+    PageResult pageQuery(Integer currentPage, Integer pageSize, String queryString);
 }

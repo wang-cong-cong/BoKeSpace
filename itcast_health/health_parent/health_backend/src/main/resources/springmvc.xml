@@ -12,6 +12,13 @@
 						http://code.alibabatech.com/schema/dubbo/dubbo.xsd
 						http://www.springframework.org/schema/context
 						http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--
+    服务器已启动就要加载spring-redis配置文件：
+        方法一：在springmvc的配置文件中使用import标签导入
+        方法二：在web.xml文件中修改加载配置文件路径改为通配符
+         <import resource="spring-redis.xml"/>
+    -->
+
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">
             <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
