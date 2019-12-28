@@ -26,4 +26,7 @@ public interface SetMealDao {
     void deleteAssociation(Integer id);
 
     void delete(Integer id);
+
+    List<Setmeal> findAll();
+
 }

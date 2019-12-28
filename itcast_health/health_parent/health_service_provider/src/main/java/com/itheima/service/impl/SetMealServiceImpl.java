@@ -92,6 +92,14 @@ public class SetMealServiceImpl implements SetMealService {
         setMealDao.delete(id);
     }
 
+    /**
+     * 查询全部套餐
+     * */
+    @Override
+    public List<Setmeal> findAll() {
+        return setMealDao.findAll();
+    }
+
     //创建将图片名称保存到
     private void savePic2Redis(String pic) {
         jedisPool.getResource().sadd(RedisConstant.SETMEAL_PIC_DB_RESOURCES,pic);

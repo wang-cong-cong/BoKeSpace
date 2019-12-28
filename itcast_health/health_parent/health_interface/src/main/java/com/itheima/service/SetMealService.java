@@ -12,7 +12,6 @@ import java.util.List;
 public interface SetMealService {
     void add(Setmeal setmeal, Integer[] checkGroupIds);
 
-
     PageResult findPage(Integer currentPage, Integer pageSize, String queryString);
 
     Setmeal findById(Integer id);
@@ -22,4 +21,6 @@ public interface SetMealService {
     void edit(Setmeal setmeal, Integer[] checkgroupIds);
 
     void delete(Integer id);
+
+    List<Setmeal> findAll();
 }

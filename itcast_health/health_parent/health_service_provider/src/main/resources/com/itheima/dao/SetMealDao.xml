@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itheima.dao.SetMealDao">
+    
+    <resultMap id="baseResultMap" type="com.itheima.domain.Setmeal" autoMapping="true">
+        <id column="id" property="id"/>
+        <collection property="checkGroups"
+                    javaType="ArrayList"
+                    column="id"
+                    ofType="com.itheima.domain.CheckGroup"
+                    select="com.itheima.dao.CheckGroupDao.findGroupById">
+        </collection>
+    </resultMap>
+    <!--根据套餐ID查询套餐详情（包含套餐基本信息、检查组信息、检查项信息）-->
+    <select id="findById" parameterType="integer" resultMap="baseResultMap">
+        select * from t_setmeal where id = #{id}
+    </select>
+    
     <!--添加套餐-->
     <insert id="add" parameterType="com.itheima.domain.Setmeal">
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
@@ -19,10 +34,7 @@
             where code = #{value} or name = #{value} or helpCode = #{value}
         </if>
     </select>
-    <!--根据id查询套餐-->
-    <select id="findById" parameterType="integer" resultType="com.itheima.domain.Setmeal">
-        select * from t_setmeal where id = #{id}
-    </select>
+    
     <!--根据套餐id查询检查组id-->
     <select id="findSetMealAndCheckGroup" parameterType="integer" resultType="integer">
         select checkgroup_id from t_setmeal_checkgroup where setmeal_id = #{id}
@@ -69,4 +81,8 @@
     <delete id="delete" parameterType="integer">
         delete from t_setmeal where id = #{id}
     </delete>
+    <!--查询全部套餐-->
+    <select id="findAll" resultType="com.itheima.domain.Setmeal">
+        select * from t_setmeal
+    </select>
 </mapper>

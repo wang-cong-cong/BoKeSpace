@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itheima.dao.CheckGroupDao">
+    
+    <resultMap id="baseResultMap" type="com.itheima.domain.CheckGroup" autoMapping="true">
+        <id column="id" property="id"/>
+        <collection property="checkItems"
+                    column="id"
+                    javaType="ArrayList"
+                    ofType="com.itheima.domain.CheckItem"
+                    select="com.itheima.dao.CheckItemDao.findCheckItemById">
+        </collection>
+    </resultMap>
+    <!--根据套餐id查询检查项信息-->
+    <select id="findGroupById" resultMap="baseResultMap">
+        select * from t_checkgroup where id
+        in (select checkgroup_id from t_setmeal_checkgroup where setmeal_id = #{id})
+    </select>
+
+
+
+
     <!--添加检查组信息-->
     <insert id="add" parameterType="com.itheima.domain.CheckGroup">
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
@@ -68,6 +87,7 @@
     </select>
     <!--根据检查组id查询中间表关系-->
     <select id="findCountByCheckItemId" parameterType="integer" resultType="integer">
-        select count(*) from t_checkgroup_checkitem where checkfroup_id = #{checkgroup_id}
+        select count(*) from t_checkgroup_checkitem where checkgroup_id = #{checkgroup_id}
     </select>
+    <!--根据id查询-->
 </mapper>
