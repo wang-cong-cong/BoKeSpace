@@ -23,4 +23,5 @@ public interface CheckItemService {
     CheckItem findById(Integer id);
 
     List<CheckItem> findAll();
+
 }

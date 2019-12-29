@@ -75,6 +75,8 @@ public class CheckGroupServiceImpl implements CheckGroupService {
         //向中间表插入和更新数据(建立检查组和检查项的关系)
         setCheckGroupAndCheckItem(checkGroup.getId(),checkItemIds);
 
+        //修改成功重新生成静态网页
+        //查询是否有关联的检查项
     }
 
     /**

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.MemberDao">
+    <!--根据电话查询会员-->
+    <select id="findByTelephone" parameterType="string" resultType="com.itheima.domain.Member">
+        select * from t_member WHERE phoneNumber = #{telephone}
+    </select>
+    <insert id="add" parameterType="com.itheima.domain.Member">
+        insert into t_member(fileNumber,name,sex,idCard,phoneNumber,regTime,password,email,birthday,remark)
+            values (#{fileNumber},#{name},#{sex},#{idCard},#{phoneNumber},#{regTime},#{password},#{email},#{birthday},#{remark})
+    </insert>
+</mapper>

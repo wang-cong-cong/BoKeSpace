@@ -9,7 +9,7 @@
     <update id="editNumberByOrderDate" parameterType="com.itheima.domain.OrderSetting">
         update t_ordersetting set number = #{number} where orderDate = #{orderDate}
     </update>
-    <!--根据预约日期  查询-->
+    <!--根据预约日期查询预约设置信息-->
     <select id="findCountByOrderDate" resultType="long" parameterType="date">
         select count(*) from t_ordersetting where orderDate =  #{orderDate}
     </select>
@@ -17,4 +17,8 @@
     <select id="getOrderSettingByMonth" parameterType="hashmap" resultType="com.itheima.domain.OrderSetting">
         select * from t_ordersetting where orderDate between #{dateBegin} and #{dateEnd}
     </select>
+    <!--更新已预约人数-->
+    <update id="editReservationsByOrderDate" parameterType="com.itheima.domain.OrderSetting">
+        update t_ordersetting set reservations = #{reservations} where orderDate = #{orderDate}
+    </update>
 </mapper>

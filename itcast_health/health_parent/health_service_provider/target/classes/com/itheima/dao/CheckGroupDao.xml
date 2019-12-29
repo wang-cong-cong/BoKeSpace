@@ -4,12 +4,6 @@
     
     <resultMap id="baseResultMap" type="com.itheima.domain.CheckGroup" autoMapping="true">
         <id column="id" property="id"/>
-        <!--<result column="name" property="name"/>
-        <result column="code" property="code"/>
-        <result column="helpCode" property="helpCode"/>
-        <result column="sex" property="sex"/>
-        <result column="remark" property="remark"/>
-        <result column="attention" property="attention"/>-->
         <collection property="checkItems"
                     column="id"
                     javaType="ArrayList"
@@ -17,9 +11,6 @@
                     select="com.itheima.dao.CheckItemDao.findCheckItemById">
         </collection>
     </resultMap>
-    <!--<resultMap id="findByIdResultMap" type="com.itheima.domain.CheckGroup" extends="baseResultMap">
-
-    </resultMap>-->
     <!--根据套餐id查询检查项信息-->
     <select id="findGroupById" resultMap="baseResultMap">
         select * from t_checkgroup where id

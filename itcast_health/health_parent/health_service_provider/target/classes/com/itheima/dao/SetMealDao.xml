@@ -4,15 +4,6 @@
     
     <resultMap id="baseResultMap" type="com.itheima.domain.Setmeal" autoMapping="true">
         <id column="id" property="id"/>
-      <!--  <result column="name" property="name"/>
-        <result column="code" property="code"/>
-        <result column="helpCode" property="helpCode"/>
-        <result column="sex" property="sex"/>
-        <result column="age" property="age"/>
-        <result column="price" property="price"/>
-        <result column="remark" property="remark"/>
-        <result column="attention" property="attention"/>
-        <result column="img" property="img"/>-->
         <collection property="checkGroups"
                     javaType="ArrayList"
                     column="id"
@@ -20,9 +11,6 @@
                     select="com.itheima.dao.CheckGroupDao.findGroupById">
         </collection>
     </resultMap>
-    <!--<resultMap id="findByIdResultMap" type="com.itheima.domain.Setmeal" extends="baseResultMap">
-
-    </resultMap>-->
     <!--根据套餐ID查询套餐详情（包含套餐基本信息、检查组信息、检查项信息）-->
     <select id="findById" parameterType="integer" resultMap="baseResultMap">
         select * from t_setmeal where id = #{id}

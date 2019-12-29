@@ -1,0 +1,13 @@
+package com.itheima.dao;
+
+import com.itheima.domain.Member;
+
+/**
+ * @author cong
+ */
+public interface MemberDao {
+
+    Member findByTelephone(String telephone);
+
+    void add(Member member);
+}
