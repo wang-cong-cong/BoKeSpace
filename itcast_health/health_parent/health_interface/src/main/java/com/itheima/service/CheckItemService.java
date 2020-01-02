@@ -3,6 +3,7 @@ package com.itheima.service;
 import com.itheima.domain.CheckItem;
 import com.itheima.entity.PageResult;
 import com.itheima.entity.QueryPageBean;
+import com.itheima.entity.Result;
 
 import java.util.List;
 

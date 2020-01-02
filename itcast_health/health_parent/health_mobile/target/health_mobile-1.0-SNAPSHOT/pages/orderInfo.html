@@ -140,7 +140,7 @@
                         }
                         //身份证号格式校验正确发送ajax请求
                         axios.post("/order/submit.do",this.orderInfo).then((response)=>{
-                            if (response.data.falg) {
+                            if (response.data.flag) {
                                 //预约成功跳转页面
                                 window.location.href = "orderSuccess.html?orderId="+response.data.data;
                             }else{

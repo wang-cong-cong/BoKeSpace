@@ -4685,7 +4685,7 @@ var functionMap = {
     ],
     "ibase_add_user": [
         "bool ibase_add_user(resource service_handle, string user_name, string password [, string first_name [, string middle_name [, string last_name]]])",
-        "Add a user to security database"
+        "Add a user to service database"
     ],
     "ibase_affected_rows": [
         "int ibase_affected_rows( [ resource link_identifier ] )",
@@ -4753,7 +4753,7 @@ var functionMap = {
     ],
     "ibase_delete_user": [
         "bool ibase_delete_user(resource service_handle, string user_name, string password [, string first_name [, string middle_name [, string last_name]]])",
-        "Delete a user from security database"
+        "Delete a user from service database"
     ],
     "ibase_drop_db": [
         "bool ibase_drop_db([resource link_identifier])",
@@ -4809,7 +4809,7 @@ var functionMap = {
     ],
     "ibase_modify_user": [
         "bool ibase_modify_user(resource service_handle, string user_name, string password [, string first_name [, string middle_name [, string last_name]]])",
-        "Modify a user in security database"
+        "Modify a user in service database"
     ],
     "ibase_name_result": [
         "bool ibase_name_result(resource result, string name)",

@@ -31,7 +31,7 @@
                 <el-input placeholder="项目编码/项目名称" v-model="pagination.queryString" style="width: 200px;"
                           class="filter-item"></el-input>
                 <el-button @click="queryPage()" class="dalfBut">查询</el-button>
-                <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
+                <el-button type="primary" v-if="checkItem.add" class="butT" @click="handleCreate()">新建</el-button>
             </div>
             <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
                 <el-table-column type="index" align="center" label="序号"></el-table-column>
@@ -47,8 +47,8 @@
                 <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                         <!--scope.row当前数据对象-->
-                        <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
-                        <el-button size="mini" type="danger" @click="handleDelete(scope.row)">删除</el-button>
+                        <el-button type="primary" size="mini" v-if="checkItem.edit" @click="handleUpdate(scope.row)">编辑</el-button>
+                        <el-button size="mini" type="danger" v-if="checkItem.delete" @click="handleDelete(scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -211,6 +211,7 @@
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script src="../js/axios-0.18.0.js"></script>
 <script>
+
     var vue = new Vue({
         el: '#app',
         data: {
@@ -219,6 +220,11 @@
                 pageSize: 10,//每页显示的记录数
                 total: 0,//总记录数
                 queryString: null//查询条件
+            },
+            checkItem: {
+                add:false,
+                edit:false,
+                delete:false
             },
             dataList: [],//当前页要展示的分页列表数据
             formData: {},//表单数据
@@ -234,6 +240,14 @@
         created() {
             //页面初始化完成后调用分页方法
             this.findPage();
+            //发送异步请求判断是否有该权限修改各个功能按钮显示
+            axios.get("/authority/checkItem.do").then((response)=>{
+                if (response.data.flag){
+                    this.checkItem = response.data.data;
+                }else{
+                    this.$message.error("权限不足");
+                }
+            })
         },
         methods: {
             //编辑页面
@@ -308,7 +322,7 @@
                     //双向数据绑定，将返回的数据赋值给页面变量
                     this.dataList = resp.data.rows;//分页列表数据
                     this.pagination.total = resp.data.total;//总页数
-                });
+                })
             },
             // 重置表单
             resetForm() {

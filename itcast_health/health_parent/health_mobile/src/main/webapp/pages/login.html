@@ -40,7 +40,7 @@
                     <div class="input-row">
                         <label>验证码</label>
                         <div class="loginInput">
-                            <input v-model="loginInfo.validateCode" style="width:80%" id='password' type="password" placeholder="请输入验证码">
+                            <input v-model="loginInfo.validateCode" style="width:80%" id='password' type="text" placeholder="请输入验证码">
                         </div>
                     </div>
                     <div class="input-row" style="font-size: 12px">
@@ -62,36 +62,44 @@
             methods:{
                 //发送验证码
                 sendValidateCode(){
-                    var telephone = this.loginInfo.telephone;
-                    if (!checkTelephone(telephone)) {
-                        this.$message.error('请输入正确的手机号');
+                    //获取手机号
+                  var telephone =  this.loginInfo.telephone;
+                  //校验手机号
+                    if (!checkTelephone(telephone)){
+                        this.$message.error("请输入正确的手机");
                         return false;
                     }
-                    validateCodeButton = $("#validateCodeButton")[0];
-                    clock = window.setInterval(doLoop, 1000); //一秒执行一次
-                    axios.post("/validateCode/send4Login.do?telephone=" + telephone).then((response) => {
-                        if(!response.data.flag){
+                    //获取发送验证码按钮对象
+                    validateCodeButton = document.getElementById("validateCodeButton");
+                    //设置定时器一秒执行一次doLoop方法
+                    clock = window.setInterval(doLoop,1000);
+                    //发送ajax请求验证验证码
+                    axios.post("/validateCode/send4OLogin.do?telephone="+telephone).then((response)=>{
+                        if (!response.data.flag){
                             //验证码发送失败
-                            this.$message.error('验证码发送失败，请检查手机号输入是否正确');
+                            this.$message.error("验证码发送失败，请检查手机号输入是否正确");
                         }
-                    });
+                    })
                 },
                 //登录
                 login(){
-                    var telephone = this.loginInfo.telephone;
-                    if (!checkTelephone(telephone)) {
-                        this.$message.error('请输入正确的手机号');
+                    //获取手机号
+                   var telephone = this.loginInfo.telephone;
+                   //校验手机号是否正确
+                    if (!checkTelephone(telephone)){
+                        this.$message.error("请输入正确的手机号");
                         return false;
                     }
-                    axios.post("/login/check.do",this.loginInfo).then((response) => {
-                        if(response.data.flag){
-                            //登录成功,跳转到index.html
-                            window.location.href="index.html";
-                        }else{
-                            //失败，提示失败信息
+                    //发送ajax请求进行注册
+                    axios.post("/member/login.do",this.loginInfo).then((response)=>{
+                        if (response.data.flag) {
+                            //注册成功跳转页面
+                            window.location.href = "member.html";
+                        }else {
+                            //注册失败，发送失败信息
                             this.$message.error(response.data.message);
                         }
-                    });
+                    })
                 }
             }
         });

@@ -7,6 +7,7 @@ import com.itheima.entity.PageResult;
 import com.itheima.entity.QueryPageBean;
 import com.itheima.entity.Result;
 import com.itheima.service.CheckItemService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,7 @@ public class CheckItemController {
     /**
      * 添加检查项
      */
+    @PreAuthorize("hasAnyAuthority('CHECKITEM_ADD')")//权限校验，表示执行此功能必须有检查项添加权限
     @RequestMapping("/add.do")
     public Result add(@RequestBody CheckItem checkItem) {
         try {
@@ -40,6 +42,7 @@ public class CheckItemController {
     /**
      * 检查项分页
      */
+    @PreAuthorize("hasAnyAuthority('CHECKITEM_QUERY')")//权限校验，表示执行此功能必须有检查项查询权限
     @RequestMapping("/findPage.do")
     public PageResult findPage(@RequestBody QueryPageBean queryPageBean) {
         PageResult pageResult = checkItemService.pageQuery(queryPageBean);
@@ -49,6 +52,7 @@ public class CheckItemController {
     /**
      * 删除检查项
      */
+    @PreAuthorize("hasAnyAuthority('CHECKITEM_DELETE')")//权限校验，表示执行此功能必须有检查项删除权限
     @RequestMapping("/delete.do")
     public Result delete(Integer id) {
         try {
@@ -64,6 +68,7 @@ public class CheckItemController {
     /**
      * 编辑检查项
      */
+    @PreAuthorize("hasAnyAuthority('CHECKITEM_EDIT')")//权限校验，表示执行此功能必须有检查项修改权限
     @RequestMapping("/edit.do")
     public Result edit(@RequestBody CheckItem checkItem) {
         try {

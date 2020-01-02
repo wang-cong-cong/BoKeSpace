@@ -6,7 +6,15 @@
         select * from t_member WHERE phoneNumber = #{telephone}
     </select>
     <insert id="add" parameterType="com.itheima.domain.Member">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         insert into t_member(fileNumber,name,sex,idCard,phoneNumber,regTime,password,email,birthday,remark)
             values (#{fileNumber},#{name},#{sex},#{idCard},#{phoneNumber},#{regTime},#{password},#{email},#{birthday},#{remark})
     </insert>
+
+    <!--根据月份查询会员人数-->
+    <select id="findMemberCountBeforeDate" parameterType="string" resultType="integer">
+        select count(id) from t_member where regTime &lt;= #{value}
+    </select>
 </mapper>

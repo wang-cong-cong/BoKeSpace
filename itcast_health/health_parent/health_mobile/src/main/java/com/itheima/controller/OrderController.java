@@ -29,6 +29,9 @@ public class OrderController {
     @Autowired
     private JedisPool jedisPool;
 
+    /**
+     * 提交订单
+     * */
     @RequestMapping("/submit.do")
     public Result submit(@RequestBody Map map) {
         //获取手机号
@@ -50,7 +53,7 @@ public class OrderController {
         } catch (Exception e) {
             e.printStackTrace();
             //预约失败
-            return result;
+            return new Result(false,MessageConstant.ORDER_FAIL);
         }
         //判断预约是否成功发送短信
         if (result.isFlag()) {
@@ -64,5 +67,19 @@ public class OrderController {
             }
         }
         return result;
+    }
+
+    /**
+     * 根据订单id查询信息
+     * */
+    @RequestMapping("/findById.do")
+    public Result findById(Integer id){
+        try {
+            Map map = orderService.findById(id);
+            return new Result(true,MessageConstant.QUERY_ORDER_SUCCESS,map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,MessageConstant.QUERY_ORDER_FAIL);
+        }
     }
 }

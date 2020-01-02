@@ -31,6 +31,10 @@ public class OrderServiceImpl implements OrderService {
     private MemberDao memberDao;
     @Autowired
     private OrderSettingDao orderSettingDao;
+
+    /**
+     * 预约
+     * */
     @Override
     public Result order(Map map) throws Exception {
         /*1、检查用户所选择的预约日期是否已经提前进行了预约设置，
@@ -92,5 +96,18 @@ public class OrderServiceImpl implements OrderService {
         orderSettingDao.editReservationsByOrderDate(orderSetting);
 
         return new Result(true,MessageConstant.ORDER_SUCCESS,order.getId());
+    }
+
+    /**
+     * 根据订单id查询订单信息
+     * */
+    @Override
+    public Map findById(Integer id) throws Exception {
+      Map map = orderDao.findById4Detail(id);
+      if (map != null){
+          Date orderDate = (Date) map.get("orderDate");
+          map.put("orderDate",DateUtils.parseDate2String(orderDate));
+      }
+        return map;
     }
 }

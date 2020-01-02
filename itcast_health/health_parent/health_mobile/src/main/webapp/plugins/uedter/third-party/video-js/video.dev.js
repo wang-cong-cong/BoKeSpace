@@ -5453,15 +5453,15 @@ vjs.Flash = vjs.MediaTechController.extend({
     // Loading the flash plugin into a dynamically generated iFrame gets around most of these issues.
     // Issues that remain include hiding the element and requestFullScreen in Firefox specifically
 
-    // There's on particularly annoying issue with this method which is that Firefox throws a security error on an offsite Flash object loaded into a dynamically created iFrame.
+    // There's on particularly annoying issue with this method which is that Firefox throws a service error on an offsite Flash object loaded into a dynamically created iFrame.
     // Even though the iframe was inserted into a page on the web, Firefox + Flash considers it a local app trying to access an internet file.
     // I tried mulitple ways of setting the iframe src attribute but couldn't find a src that worked well. Tried a real/fake source, in/out of domain.
-    // Also tried a method from stackoverflow that caused a security error in all browsers. http://stackoverflow.com/questions/2486901/how-to-set-document-domain-for-a-dynamically-generated-iframe
+    // Also tried a method from stackoverflow that caused a service error in all browsers. http://stackoverflow.com/questions/2486901/how-to-set-document-domain-for-a-dynamically-generated-iframe
     // In the end the solution I found to work was setting the iframe window.location.href right before doing a document.write of the Flash object.
     // The only downside of this it seems to trigger another http request to the original page (no matter what's put in the href). Not sure why that is.
 
     // NOTE (2012-01-29): Cannot get Firefox to load the remote hosted SWF into a dynamically created iFrame
-    // Firefox 9 throws a security error, unleess you call location.href right before doc.write.
+    // Firefox 9 throws a service error, unleess you call location.href right before doc.write.
     //    Not sure why that even works, but it causes the browser to look like it's continuously trying to load the page.
     // Firefox 3.6 keeps calling the iframe onload function anytime I write to it, causing an endless loop.
 
@@ -5486,14 +5486,14 @@ vjs.Flash = vjs.MediaTechController.extend({
       // Tried multiple methods to get this to work in all browsers
 
       // Tried embedding the flash object in the page first, and then adding a place holder to the iframe, then replacing the placeholder with the page object.
-      // The goal here was to try to load the swf URL in the parent page first and hope that got around the firefox security error
+      // The goal here was to try to load the swf URL in the parent page first and hope that got around the firefox service error
       // var newObj = vjs.Flash.embed(options['swf'], placeHolder, flashVars, params, attributes);
       // (in onload)
       //  var temp = vjs.createEl('a', { id:'asdf', innerHTML: 'asdf' } );
       //  iDoc.body.appendChild(temp);
 
       // Tried embedding the flash object through javascript in the iframe source.
-      // This works in webkit but still triggers the firefox security error
+      // This works in webkit but still triggers the firefox service error
       // iFrm.src = 'javascript: document.write('"+vjs.Flash.getEmbedCode(options['swf'], flashVars, params, attributes)+"');";
 
       // Tried an actual local iframe just to make sure that works, but it kills the easiness of the CDN version if you require the user to host an iframe
@@ -5507,8 +5507,8 @@ vjs.Flash = vjs.MediaTechController.extend({
             iWin = iFrm.contentWindow;
 
         // The one working method I found was to use the iframe's document.write() to create the swf object
-        // This got around the security issue in all browsers except firefox.
-        // I did find a hack where if I call the iframe's window.location.href='', it would get around the security error
+        // This got around the service issue in all browsers except firefox.
+        // I did find a hack where if I call the iframe's window.location.href='', it would get around the service error
         // However, the main page would look like it was loading indefinitely (URL bar loading spinner would never stop)
         // Plus Firefox 3.6 didn't work no matter what I tried.
         // if (vjs.USER_AGENT.match('Firefox')) {
@@ -5519,7 +5519,7 @@ vjs.Flash = vjs.MediaTechController.extend({
         iDoc = iFrm.contentDocument ? iFrm.contentDocument : iFrm.contentWindow.document;
 
         // Tried ensuring both document domains were the same, but they already were, so that wasn't the issue.
-        // Even tried adding /. that was mentioned in a browser security writeup
+        // Even tried adding /. that was mentioned in a browser service writeup
         // document.domain = document.domain+'/.';
         // iDoc.domain = document.domain+'/.';
 
@@ -5529,9 +5529,9 @@ vjs.Flash = vjs.MediaTechController.extend({
         // Tried appending the object to the iframe doc's body. Security error in all browsers.
         // iDoc.body.appendChild(swfObject);
 
-        // Using document.write actually got around the security error that browsers were throwing.
+        // Using document.write actually got around the service error that browsers were throwing.
         // Again, it's a dynamically generated (same domain) iframe, loading an external Flash swf.
-        // Not sure why that's a security issue, but apparently it is.
+        // Not sure why that's a service issue, but apparently it is.
         iDoc.write(vjs.Flash.getEmbedCode(options['swf'], flashVars, params, attributes));
 
         // Setting variables on the window needs to come after the doc write because otherwise they can get reset in some browsers
@@ -5823,7 +5823,7 @@ vjs.Flash.getEmbedCode = function(swf, flashVars, params, attributes){
     'movie': swf,
     'flashvars': flashVarsString,
     'allowScriptAccess': 'always', // Required to talk to swf
-    'allowNetworking': 'all' // All should be default, but having security issues.
+    'allowNetworking': 'all' // All should be default, but having service issues.
   }, params);
 
   // Create param tags string

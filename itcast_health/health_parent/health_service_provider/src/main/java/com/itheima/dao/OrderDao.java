@@ -5,6 +5,7 @@ import com.itheima.domain.OrderSetting;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author cong
@@ -16,4 +17,6 @@ public interface OrderDao {
     List<Order> findByCondition(Order order);
 
     void add(Order order);
+
+    Map findById4Detail(Integer id);
 }

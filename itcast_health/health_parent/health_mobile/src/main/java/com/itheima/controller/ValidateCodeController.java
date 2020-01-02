@@ -22,7 +22,7 @@ public class ValidateCodeController {
     private JedisPool jedisPool;
 
     /**
-     * 发送短信验证码，并将验证码存入redis
+     * 发送注册短信验证码，并将验证码存入redis
      * */
     @RequestMapping("/send4Order.do")
     public Result send4Order(String telephone){
@@ -43,5 +43,27 @@ public class ValidateCodeController {
         System.out.println("你发送的验证码是："+validateCode);
         //验证码发送成功
         return new Result(true, MessageConstant.SEND_VALIDATECODE_SUCCESS);
+    }
+
+    /**
+     * 发送登陆短信验证码，并将验证码存入redis中
+     * */
+    @RequestMapping("/send4OLogin.do")
+    public Result send4OLogin(String telephone){
+        //生成6位随机验证码
+        Integer validateCode = ValidateCodeUtils.generateValidateCode(6);
+        try {
+            //发送短信验证码
+            SMSUtils.sendShortMessage(SMSUtils.VALIDATE_CODE,telephone,validateCode.toString());
+        } catch (ClientException e) {
+            e.printStackTrace();
+            //发送失败
+            return new Result(false,MessageConstant.SEND_VALIDATECODE_FAIL);
+        }
+        System.out.println("发送的验证码是："+validateCode);
+
+        //发送成功将验证码存入reids中
+        jedisPool.getResource().setex(telephone+MessageConstant.SEND_VALIDATECODE_SUCCESS,5*50,validateCode.toString());
+        return new Result(true,MessageConstant.SEND_VALIDATECODE_SUCCESS);
     }
 }

@@ -930,7 +930,7 @@ var PgsqlHighlightRules = function() {
         "reassign|recheck|record|recursive|ref|refcursor|references|refresh|regclass|regconfig|" +
         "regdictionary|regoper|regoperator|regproc|regprocedure|regtype|reindex|relative|release|" +
         "reltime|rename|repeatable|replace|replica|reset|restart|restrict|returning|returns|revoke|" +
-        "right|role|rollback|row|rows|rule|savepoint|schema|scroll|search|second|security|select|" +
+        "right|role|rollback|row|rows|rule|savepoint|schema|scroll|search|second|service|select|" +
         "sequence|sequences|serializable|server|session|session_user|set|setof|share|show|similar|" +
         "simple|smallint|smgr|snapshot|some|stable|standalone|start|statement|statistics|stdin|" +
         "stdout|storage|strict|strip|substring|symmetric|sysid|system|table|tables|tablespace|temp|" +

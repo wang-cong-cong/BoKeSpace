@@ -9,6 +9,7 @@ import com.itheima.domain.CheckItem;
 import com.itheima.domain.Setmeal;
 import com.itheima.entity.PageResult;
 import com.itheima.entity.QueryPageBean;
+import com.itheima.entity.Result;
 import com.itheima.service.CheckItemService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
