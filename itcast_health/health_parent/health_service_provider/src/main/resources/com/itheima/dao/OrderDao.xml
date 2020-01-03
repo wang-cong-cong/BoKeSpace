@@ -49,4 +49,47 @@
             t_setmeal s
         where o.member_id = m.id and o.setmeal_id = s.id and o.id = #{id}
     </select>
+
+    <!--今日预约人数-->
+    <select id="findOrderCountByDate" resultType="integer" parameterType="string">
+        SELECT COUNT(id) FROM t_order WHERE orderDate = #{value}
+    </select>
+
+    <!--今日到诊数-->
+    <select id="findVisitsCountByDate" parameterType="string" resultType="integer">
+        select count(id) from t_order where orderDate = #{value} and orderStatus = '已到诊'
+    </select>
+
+    <!--本周预约人数-->
+    <select id="findOrderCountAfterDate" resultType="integer" >
+        SELECT COUNT(id) FROM t_order WHERE orderDate between #{startWeek} and #{endWeek}
+    </select>
+
+    <!--本月到诊人数-->
+    <select id="findVisitsCountAfterDate" parameterType="string" resultType="integer">
+        select count(id) from t_order where orderDate &gt;= #{value} and orderStatus = '已到诊'
+    </select>
+
+    <select id="findVisitsCountAfterDate2"  resultType="integer">
+        select count(id) from t_order where orderDate between #{startWeek} and #{endWeek} and orderStatus = '已到诊'
+    </select>
+
+
+    <!--热门套餐-->
+    <select id="findHotSetmeal" resultType="map">
+        SELECT
+            s.name,
+            COUNT(o.id) setmeal_count,
+            COUNT(o.id)/(SELECT COUNT(id) FROM t_setmeal) proportion
+        FROM
+            t_order o,
+            t_setmeal s
+        WHERE
+            o.setmeal_id = s.id
+        GROUP BY
+            o.setmeal_id
+        ORDER BY
+            setmeal_count DESC
+        limit 0,4
+    </select>
 </mapper>

@@ -23,8 +23,12 @@ public class PoiDemo {
 
     }
 
+    /**
+     *新建excel表格
+     * @throws IOException
+     */
     private static void writeExcel() throws IOException {
-        //创阿健工作薄对象
+        //创建工作薄对象
         XSSFWorkbook sheets = new XSSFWorkbook();
         //创建表对象
         XSSFSheet sheet = sheets.createSheet("Hello");
@@ -48,6 +52,10 @@ public class PoiDemo {
         sheets.close();
     }
 
+    /**
+     * 读取excel表格数据
+     * @throws IOException
+     */
     private static void readExcel() throws IOException {
         //创建工作薄对象
         XSSFWorkbook worksheets = new XSSFWorkbook("E:\\Hello.xlsx");

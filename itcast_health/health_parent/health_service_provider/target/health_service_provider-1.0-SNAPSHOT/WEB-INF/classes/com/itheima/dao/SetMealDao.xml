@@ -85,4 +85,10 @@
     <select id="findAll" resultType="com.itheima.domain.Setmeal">
         select * from t_setmeal
     </select>
+    <!--查询套餐集合-->
+    <select id="findSetmealCount" resultType="map">
+        SELECT s.name,COUNT(o.id) as value
+            FROM t_order o,t_setmeal s
+            WHERE o.setmeal_id = s.id GROUP BY s.name
+    </select>
 </mapper>

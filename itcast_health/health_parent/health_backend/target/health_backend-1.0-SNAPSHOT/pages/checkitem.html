@@ -244,8 +244,6 @@
             axios.get("/authority/checkItem.do").then((response)=>{
                 if (response.data.flag){
                     this.checkItem = response.data.data;
-                }else{
-                    this.$message.error("权限不足");
                 }
             })
         },

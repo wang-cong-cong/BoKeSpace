@@ -4,6 +4,7 @@ import com.itheima.domain.Setmeal;
 import com.itheima.entity.PageResult;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -23,4 +24,7 @@ public interface SetMealService {
     void delete(Integer id);
 
     List<Setmeal> findAll();
+
+    List<Map<String, Object>> findSetmealCount();
+
 }

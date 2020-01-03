@@ -120,6 +120,14 @@ public class SetMealServiceImpl implements SetMealService {
         return setMealDao.findAll();
     }
 
+    /**
+     * 获取套餐统计占比
+     * */
+    @Override
+    public List<Map<String, Object>> findSetmealCount() {
+        return setMealDao.findSetmealCount();
+    }
+
     //创建将图片名称保存到redis中
     private void savePic2Redis(String pic) {
         jedisPool.getResource().sadd(RedisConstant.SETMEAL_PIC_DB_RESOURCES,pic);

@@ -29,4 +29,6 @@ public interface SetMealDao {
 
     List<Setmeal> findAll();
 
+    List<Map<String, Object>> findSetmealCount();
+
 }

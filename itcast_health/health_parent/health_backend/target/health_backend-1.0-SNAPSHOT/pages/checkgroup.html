@@ -56,7 +56,7 @@
                     <div class="filter-container">
                         <el-input placeholder="编码/名称/助记码" v-model="pagination.queryString" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter"></el-input>
                         <el-button @click="query()" class="dalfBut">查询</el-button>
-                        <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
+                        <el-button type="primary" v-if="checkGroup.add" class="butT" @click="handleCreate()">新建</el-button>
                     </div>
                     <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
                         <el-table-column type="index" align="center" label="序号"></el-table-column>
@@ -71,8 +71,8 @@
                         <el-table-column prop="remark" label="说明" align="center"></el-table-column>
                         <el-table-column label="操作" align="center">
                             <template slot-scope="scope">
-                                <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
-                                <el-button size="mini" type="danger" @click="handleDelete(scope.row)">删除</el-button>
+                                <el-button type="primary" v-if="checkGroup.edit" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
+                                <el-button size="mini" v-if="checkGroup.delete" type="danger" @click="handleDelete(scope.row)">删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -270,6 +270,11 @@
                     total:0,
                     queryString:null,
                 },
+                checkGroup: {
+                    add:false,
+                    edit:false,
+                    delete:false
+                },
                 dataList: [],//列表数据
                 formData: {},//表单数据
                 tableData:[],//新增和编辑表单中对应的检查项列表数据
@@ -285,6 +290,12 @@
             //钩子函数
             created() {
                 this.findPage();
+                //发送异步请求判断是否有该权限修改各个功能按钮显示
+                axios.get("/authority/checkGroup.do").then((response)=>{
+                    if (response.data.flag){
+                        this.checkGroup = response.data.data;
+                    }
+                })
             },
             methods: {
                 //编辑页面

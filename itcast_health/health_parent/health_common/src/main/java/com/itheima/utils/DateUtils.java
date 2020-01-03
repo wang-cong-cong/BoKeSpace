@@ -75,21 +75,19 @@ public class DateUtils {
      * @return 本周一的日期
      */
     public static Date getThisWeekMonday() {
+        //获取当前日期
         Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        // 获得当前日期是一个星期的第几天
-        int dayWeek = cal.get(Calendar.DAY_OF_WEEK);
-        if (1 == dayWeek) {
-            cal.add(Calendar.DAY_OF_MONTH, -1);
-        }
-        // 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一
+        //将本周设置为周一
         cal.setFirstDayOfWeek(Calendar.MONDAY);
-        // 获得当前日期是一个星期的第几天
-        int day = cal.get(Calendar.DAY_OF_WEEK);
-        // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
-        cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);
-        return cal.getTime();
+        //将时间设置到周一
+        cal.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+        //获取时间
+        Date date = cal.getTime();
+
+        return date;
+
     }
+
 
     /**
      * 获取当前日期周的最后一天
@@ -285,12 +283,15 @@ public class DateUtils {
         return calendar.getTime();
     }
 
-    public static void main(String[] args) {
-        try {
-            System.out.println("本周一" + parseDate2String(getThisWeekMonday()));
-            System.out.println("本月一日" + parseDate2String(getFirstDay4ThisMonth()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    //获得本月最后一日的日期
+    public static Date getLastDay4ThisMonth(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH,31);
+        return calendar.getTime();
+    }
+
+    public static void main(String[] args) throws Exception {
+        Date lasttDay4ThisMonth = DateUtils.getLastDay4ThisMonth();
+        System.out.println(DateUtils.parseDate2String(lasttDay4ThisMonth));
     }
 }
