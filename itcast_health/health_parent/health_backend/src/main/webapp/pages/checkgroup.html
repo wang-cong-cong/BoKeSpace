@@ -177,15 +177,15 @@
                         <template>
                             <el-tabs v-model="activeName" type="card">
                                 <el-tab-pane label="基本信息" name="first">
-                                    <el-form label-position="right" label-width="100px">
+                                    <el-form ref="dataEditForm" :model="formData" :rules="rules"  label-position="right" label-width="100px">
                                         <el-row>
                                             <el-col :span="12">
-                                                <el-form-item label="编码">
+                                                <el-form-item label="编码" prop="code">
                                                     <el-input v-model="formData.code"/>
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :span="12">
-                                                <el-form-item label="名称">
+                                                <el-form-item label="名称" prop="name">
                                                     <el-input v-model="formData.name"/>
                                                 </el-form-item>
                                             </el-col>
@@ -201,7 +201,7 @@
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :span="12">
-                                                <el-form-item label="助记码">
+                                                <el-form-item label="助记码" prop="helpCode">
                                                     <el-input v-model="formData.helpCode"/>
                                                 </el-form-item>
                                             </el-col>
@@ -300,7 +300,7 @@
             methods: {
                 //编辑页面
                 handleEdit() {
-                    this.$refs["dataAddForm"].validate((valid)=> {
+                    this.$refs["dataEditForm"].validate((valid)=> {
                         if (valid) {
                             axios.post("/checkGroup/edit.do?checkItemIds=" + this.checkItemIds, this.formData).then((response) => {
                                 //隐藏编辑窗口
@@ -317,7 +317,7 @@
                                 this.findPage()
                             })
                         }else{
-                            this.$message.error("数据校验失败，请核对后上传")
+                            this.$message.error("数据校验失败，请核对后上传");
                             return false;
                         }
                     })
