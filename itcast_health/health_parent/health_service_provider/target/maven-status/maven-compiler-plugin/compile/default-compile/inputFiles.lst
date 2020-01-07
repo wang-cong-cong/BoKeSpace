@@ -2,11 +2,15 @@ D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\c
 D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\dao\MemberDao.java
 D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\service\impl\MemberServiceImpl.java
 D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\service\impl\CheckGroupServiceImpl.java
+D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\service\impl\RoleServiceImpl.java
 D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\dao\RoleDao.java
 D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\service\impl\OrderSettingServiceImpl.java
 D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\service\impl\SetMealServiceImpl.java
 D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\service\impl\OrderServiceImpl.java
 D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\service\impl\CheckItemServiceImpl.java
+D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\service\impl\MenuServiceImpl.java
+D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\service\impl\PermissionServiceImpl.java
+D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\dao\MenuDao.java
 D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\dao\OrderDao.java
 D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\dao\UserDao.java
 D:\BoKeSpace\itcast_health\health_parent\health_service_provider\src\main\java\com\itheima\dao\SetMealDao.java

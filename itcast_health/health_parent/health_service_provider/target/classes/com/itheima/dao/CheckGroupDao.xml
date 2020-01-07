@@ -86,7 +86,7 @@
         select * from t_checkgroup;
     </select>
     <!--根据检查组id查询中间表关系-->
-    <select id="findCountByCheckItemId" parameterType="integer" resultType="integer">
+    <select id="findCountByCheckItemId" parameterType="integer" resultType="long">
         select count(*) from t_checkgroup_checkitem where checkgroup_id = #{checkgroup_id}
     </select>
     <!--根据id查询-->

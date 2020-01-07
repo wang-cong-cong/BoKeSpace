@@ -5,4 +5,10 @@
     <select id="findById" parameterType="integer" resultType="com.itheima.domain.Role">
         select * from t_role where id in (select role_id  from t_user_role where user_id = #{userId})
     </select>
+
+    <!--查询全部角色-->
+    <select id="findAll" resultType="com.itheima.domain.Role">
+        select * from t_role
+    </select>
+
 </mapper>

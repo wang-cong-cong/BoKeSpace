@@ -1,5 +1,9 @@
+com\itheima\dao\MenuDao.class
+com\itheima\service\impl\RoleServiceImpl.class
 com\itheima\service\impl\ReportServiceImpl.class
+com\itheima\service\impl\MenuServiceImpl.class
 com\itheima\service\impl\UserServiceImpl.class
+com\itheima\service\impl\PermissionServiceImpl.class
 com\itheima\dao\OrderSettingDao.class
 com\itheima\dao\CheckGroupDao.class
 com\itheima\dao\UserDao.class

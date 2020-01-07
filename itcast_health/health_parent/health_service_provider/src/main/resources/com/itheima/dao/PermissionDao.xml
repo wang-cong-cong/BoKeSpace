@@ -5,4 +5,51 @@
     <select id="findById" resultType="com.itheima.domain.Permission" parameterType="integer">
         select * from t_permission where id in (select permission_id from t_role_permission where role_id = #{roleId});
     </select>
+
+    <!--根据信息查询权限-->
+    <select id="selectByCondition" resultType="com.itheima.domain.Permission" parameterType="string">
+        select * from t_permission
+        <if test="value != null and value.length >0">
+            where id = #{value} or name = #{value} or keyword = #{value}
+        </if>
+    </select>
+
+    <!--添加信息-->
+    <insert id="add" parameterType="com.itheima.domain.Permission">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into t_permission(name,keyword,description)
+        values(#{name},#{keyword},#{description})
+    </insert>
+
+    <!--根据权限id查询-->
+    <select id="findBy2Id" parameterType="integer" resultType="com.itheima.domain.Permission">
+        select * from t_permission where id = #{id}
+    </select>
+
+    <!--修改权限-->
+    <update id="edit" parameterType="com.itheima.domain.Permission">
+        update t_permission
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="keyword != null">
+                keyword = #{keyword},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除权限-->
+    <delete id="deleteById" parameterType="integer">
+        delete from t_permission where id = #{id}
+    </delete>
 </mapper>

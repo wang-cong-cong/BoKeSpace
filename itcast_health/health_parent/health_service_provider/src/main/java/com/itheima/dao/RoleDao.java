@@ -2,6 +2,7 @@ package com.itheima.dao;
 
 import com.itheima.domain.Role;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -10,4 +11,7 @@ import java.util.Set;
 public interface RoleDao {
 
     Set<Role> findById(Integer userId);
+
+    List<Role> findAll();
+
 }
