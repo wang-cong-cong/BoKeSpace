@@ -4,6 +4,8 @@ import com.itheima.domain.Menu;
 import com.itheima.entity.PageResult;
 import com.itheima.entity.QueryPageBean;
 
+import java.util.List;
+
 /**
  * @author cong
  */
@@ -18,4 +20,6 @@ public interface MenuService {
     void edit(Menu menu);
 
     void delete(Integer id);
+
+    List<Menu> findMenuIdByParentId(Integer parentMenuId);
 }

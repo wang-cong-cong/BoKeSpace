@@ -1,6 +1,7 @@
 package com.itheima.dao;
 
 import com.itheima.domain.Member;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author cong
@@ -16,4 +17,6 @@ public interface MemberDao {
     Integer findMemberTotalCount();
 
     Integer findMemberCountAfterDate(String thisWeekDate);
+
+    Integer findMemberCountForMonth(@Param("start") String start,@Param("end") String end);
 }

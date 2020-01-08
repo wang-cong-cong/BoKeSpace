@@ -16,6 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.aspectj.weaver.Lint;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,31 +44,49 @@ public class ReportController {
     @Reference
     private ReportService reportService;
 
+    @RequestMapping("/getMemberCount.do")
+    public Result getMemberCount(String start,String end){
+        try {
+            Map<String, Object> map = new HashMap<>();
+            List<String> list = new ArrayList<>();
+            list.add(start);
+            list.add(end);
+            map.put("months", start);
+            Integer memberCountForMonth = memberService.findMemberCountForMonth(list);
+            map.put("memberCount",memberCountForMonth);
+            return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_SUCCESS, map);
+        } catch (Exception e) {
+            return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_SUCCESS);
+        }
+
+    }
+
     /**
      * 会员统计
      */
-    @RequestMapping("/getMemberReport.do")
+        @RequestMapping("/getMemberReport.do")
     public Result getMemberReport() {
         try {
-            Calendar calendar = Calendar.getInstance();
-            //获取当前日期往后12个月日期
-            calendar.add(Calendar.MONTH, -12);
+                Calendar calendar = Calendar.getInstance();
+                //获取当前日期往后12个月日期
+                calendar.add(Calendar.MONTH, -12);
 
-            LinkedList<String> linkedList = new LinkedList<>();
+                LinkedList<String> linkedList = new LinkedList<>();
 
-            for (int i = 0; i < 12; i++) {
-                calendar.add(Calendar.MONTH, 1);
-                linkedList.add(DateUtils.parseDate2String(calendar.getTime()));
-            }
+                for (int i = 0; i < 12; i++) {
+                    calendar.add(Calendar.MONTH, 1);
+                    linkedList.add(DateUtils.parseDate2String(calendar.getTime()));
+                }
 
-            Map<String, Object> map = new HashMap<>();
-            map.put("months", linkedList);
+                Map<String, Object> map = new HashMap<>();
+                map.put("months", linkedList);
 
-            List<Integer> memberCount = memberService.findMemberCountByMonth(linkedList);
+                List<Integer> memberCount = memberService.findMemberCountByMonth(linkedList);
 
-            map.put("memberCount", memberCount);
+                map.put("memberCount", memberCount);
 
-            return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_SUCCESS, map);
+                return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_SUCCESS, map);
+
         } catch (Exception e) {
             e.printStackTrace();
             return new Result(false,MessageConstant.GET_MEMBER_NUMBER_REPORT_FAIL);

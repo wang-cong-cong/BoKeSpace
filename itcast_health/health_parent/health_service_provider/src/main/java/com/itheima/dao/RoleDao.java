@@ -1,5 +1,6 @@
 package com.itheima.dao;
 
+import com.itheima.domain.Menu;
 import com.itheima.domain.Role;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface RoleDao {
 
     List<Role> findAll();
 
+    List<Menu> findMenuByRoleId(Integer roleId);
 }

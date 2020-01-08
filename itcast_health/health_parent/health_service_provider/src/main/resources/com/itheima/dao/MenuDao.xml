@@ -57,4 +57,9 @@
         delete from t_menu where id = #{id}
     </delete>
 
+    <!--根据父id查询菜单-->
+    <select id="findMenuIdByParentId" parameterType="integer" resultType="com.itheima.domain.Menu">
+        select * from t_menu where parentMenuId = #{id}
+    </select>
+
 </mapper>

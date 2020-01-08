@@ -11,4 +11,16 @@
         select * from t_role
     </select>
 
+    <!--根据角色id查询菜单-->
+    <select id="findMenuByRoleId" resultType="com.itheima.domain.Menu" parameterType="integer">
+        SELECT  m.* FROM
+                        t_role r,
+                        t_role_menu rm,
+                        t_menu m
+                    WHERE
+                        r.id = rm.role_id
+                        AND m.id = rm.menu_id
+                        AND r.id = #{id};
+    </select>
+
 </mapper>

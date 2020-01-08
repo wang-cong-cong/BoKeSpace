@@ -23,6 +23,7 @@ public class SpringSecurityUserService implements UserDetailsService {
     private UserService userService;
 
     //根据用户名查询数据库获取用户信息
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.findByUserName(username);
         if(user == null){

@@ -11,6 +11,8 @@ import com.itheima.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author cong
  */
@@ -47,4 +49,10 @@ public class MenuServiceImpl implements MenuService {
     public void delete(Integer id) {
         menuDao.delete(id);
     }
+
+    @Override
+    public List<Menu> findMenuIdByParentId(Integer parentMenuId) {
+        return menuDao.findMenuIdByParentId(parentMenuId);
+    }
+
 }

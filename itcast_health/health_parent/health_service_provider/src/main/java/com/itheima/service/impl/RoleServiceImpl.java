@@ -2,6 +2,7 @@ package com.itheima.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.itheima.dao.RoleDao;
+import com.itheima.domain.Menu;
 import com.itheima.domain.Role;
 import com.itheima.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> findAll() {
         return roleDao.findAll();
+    }
+
+    @Override
+    public List<Menu> findById(Integer roleId) {
+        return roleDao.findMenuByRoleId(roleId);
     }
 }
