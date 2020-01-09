@@ -18,8 +18,7 @@
     <!--注册自定义Job-->
     <bean id="clearImgJob" class="com.itheima.jobs.ClearImgJob"></bean>
 
-    <bean id="jobDetail"
-          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <!-- 注入目标对象 -->
         <property name="targetObject" ref="clearImgJob"/>
         <!-- 注入目标方法 -->
@@ -37,12 +36,36 @@
             <value>0/10 * * * * ?</value>
         </property>
     </bean>
+
+
+    <!--自定义定时清理过期订单-->
+    <bean id="clearOrderJob" class="com.itheima.jobs.ClearOrderJob"></bean>
+    <bean id="orderDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 注入目标对象 -->
+        <property name="targetObject" ref="clearOrderJob"/>
+        <!-- 注入目标方法 -->
+        <property name="targetMethod" value="clearOrder"/>
+    </bean>
+    <!-- 注册一个触发器，指定任务触发的时间 -->
+    <bean id="myOrderTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <!-- 注入JobDetail -->
+        <property name="jobDetail" ref="orderDetail"/>
+        <!-- 指定触发的时间，基于Cron表达式 -->
+        <property name="cronExpression">
+            <value>0 0 2 1 * ?</value>
+        </property>
+    </bean>
+
+
+
+
     <!-- 注册一个统一的调度工厂，通过这个调度工厂调度任务 -->
     <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <!-- 注入多个触发器 -->
         <property name="triggers">
             <list>
                 <ref bean="myTrigger"/>
+                <ref bean="myOrderTrigger"/>
             </list>
         </property>
     </bean>

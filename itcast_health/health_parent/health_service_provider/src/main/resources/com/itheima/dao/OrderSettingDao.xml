@@ -21,4 +21,8 @@
     <update id="editReservationsByOrderDate" parameterType="com.itheima.domain.OrderSetting">
         update t_ordersetting set reservations = #{reservations} where orderDate = #{orderDate}
     </update>
+    <!--根据日期删除之前的订单-->
+    <delete id="deleteOrderByDate" parameterType="date">
+        delete from t_ordersetting where orderDate &lt; #{date}
+    </delete>
 </mapper>

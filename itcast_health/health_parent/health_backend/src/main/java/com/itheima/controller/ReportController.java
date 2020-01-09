@@ -45,13 +45,10 @@ public class ReportController {
     private ReportService reportService;
 
     @RequestMapping("/getMemberCount.do")
-    public Result getMemberCount(String start,String end){
+    public Result getMemberCount(@RequestBody List<String> list){
         try {
             Map<String, Object> map = new HashMap<>();
-            List<String> list = new ArrayList<>();
-            list.add(start);
-            list.add(end);
-            map.put("months", start);
+            map.put("months", "");
             Integer memberCountForMonth = memberService.findMemberCountForMonth(list);
             map.put("memberCount",memberCountForMonth);
             return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_SUCCESS, map);

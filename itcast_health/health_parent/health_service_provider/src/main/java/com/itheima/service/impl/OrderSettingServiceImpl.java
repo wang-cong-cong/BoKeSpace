@@ -87,4 +87,13 @@ public class OrderSettingServiceImpl implements OrderSettingService {
             orderSettingDao.add(orderSetting);
         }
     }
+
+    /**
+     * 根据日期删除之前的订单
+     * @param firstDay4ThisMonth
+     */
+    @Override
+    public void deleteOrderByDate(Date firstDay4ThisMonth) {
+        orderSettingDao.deleteOrderByDate(firstDay4ThisMonth);
+    }
 }
