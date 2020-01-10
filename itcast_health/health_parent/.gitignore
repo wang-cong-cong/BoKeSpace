@@ -5,6 +5,5 @@
 # IntelliJ project files
 *.iml
 target
-../out
 .idea
-*.xml
+
