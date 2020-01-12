@@ -46,7 +46,7 @@ public class MemberServiceImpl implements MemberService {
      * 根据日期查询会员人数
      * */
     @Override
-    public List<Integer> findMemberCountByMonth(LinkedList<String> linkedList) {
+    public List<Integer> findMemberCountByMonth(List<String> linkedList) {
         List<Integer> integerList = new ArrayList<>();
         for (String month : linkedList) {
            month = month+"-31";
@@ -61,11 +61,5 @@ public class MemberServiceImpl implements MemberService {
      * @param list
      * @return
      */
-    @Override
-    public Integer findMemberCountForMonth(List<String> list) {
-        String start = list.get(0);
-        String end = list.get(1);
-        Integer count =  memberDao.findMemberCountForMonth(start,end);
-        return count;
-    }
+
 }

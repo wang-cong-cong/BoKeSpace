@@ -44,14 +44,16 @@ public class ReportController {
     @Reference
     private ReportService reportService;
 
-    @RequestMapping("/getMemberCount.do")
-    public Result getMemberCount(@RequestBody List<String> list){
+    @RequestMapping("/getMemberScopeReport.do")
+    public Result getMemberCount(String startDate,String endDate){
         try {
-            Map<String, Object> map = new HashMap<>();
-            map.put("months", "");
-            Integer memberCountForMonth = memberService.findMemberCountForMonth(list);
-            map.put("memberCount",memberCountForMonth);
-            return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_SUCCESS, map);
+            //使用工具类根据日期区间获取日期列表
+            List<String> monthBetween = DateUtils.getMonthBetween(startDate, endDate, "yyyy-MM");
+            Map<String,Object> map = new HashMap<>();
+            map.put("months",monthBetween);
+            List<Integer> memberCountByMonth = memberService.findMemberCountByMonth(monthBetween);
+            map.put("memberCount",memberCountByMonth);
+            return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_SUCCESS,map);
         } catch (Exception e) {
             return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_SUCCESS);
         }

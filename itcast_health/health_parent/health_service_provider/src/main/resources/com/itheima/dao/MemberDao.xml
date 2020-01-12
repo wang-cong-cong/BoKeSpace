@@ -29,7 +29,5 @@
     </select>
 
     <!--根据时间段查询人数-->
-    <select id="findMemberCountForMonth" resultType="integer" parameterType="string">
-        select count(id) from t_member where regTime between #{start} and #{end}
-    </select>
+
 </mapper>

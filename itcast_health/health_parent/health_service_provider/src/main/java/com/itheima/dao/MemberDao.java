@@ -18,5 +18,5 @@ public interface MemberDao {
 
     Integer findMemberCountAfterDate(String thisWeekDate);
 
-    Integer findMemberCountForMonth(@Param("start") String start,@Param("end") String end);
+
 }

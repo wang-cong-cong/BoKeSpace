@@ -1,70 +1,150 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- 页面meta -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>传智健康</title>
-        <meta name="description" content="传智健康">
-        <meta name="keywords" content="传智健康">
-        <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
-        <!-- 引入样式 -->
-        <link rel="stylesheet" href="../css/style.css">
-        <link rel="stylesheet" href="../plugins/elementui/index.css">
-        <script src="../plugins/echarts/echarts.js"></script>
-    </head>
-    <body class="hold-transition">
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>传智健康</title>
+    <meta name="description" content="传智健康">
+    <meta name="keywords" content="传智健康">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../plugins/echarts/echarts.js"></script>
+
+    <script src="../js/vue.js"></script>
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body class="hold-transition">
+<div>
+    <div class="content-header">
+        <h1>统计分析
+            <small>会员数量</small>
+        </h1>
+        <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>统计分析</el-breadcrumb-item>
+            <el-breadcrumb-item>会员数量</el-breadcrumb-item>
+        </el-breadcrumb>
+
+
+        <!--日历控件-->
         <div id="app">
-            <div class="content-header">
-                <h1>统计分析<small>会员数量</small></h1>
-                <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
-                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item>统计分析</el-breadcrumb-item>
-                    <el-breadcrumb-item>会员数量</el-breadcrumb-item>
-                </el-breadcrumb>
-            </div>
-            <div class="app-container">
-                <div class="box">
-                    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-                    <div id="chart1" style="height:500px;"></div>
-                </div>
+            <div class="block">
+                <el-date-picker
+                        v-model="value"
+                        type="monthrange"
+                        range-separator="至"
+                        start-placeholder="开始月份"
+                        end-placeholder="结束月份"
+                >
+                </el-date-picker>
+                <span><button @click="ScopeReport()">查询</button></span>
             </div>
         </div>
-    </body>
-    <!-- 引入组件库 -->
-    <script src="../js/vue.js"></script>
-    <script src="../js/axios-0.18.0.js"></script>
-    <script src="../plugins/elementui/index.js"></script>
-    <script type="text/javascript">
 
 
+        <div class="app-container">
+            <div class="box">
+                <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                <div id="chart1" style="height:600px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 
-        // 基于准备好的dom，初始化echarts实例
-        var myChart1 = echarts.init(document.getElementById('chart1'));
 
-        axios.get("/report/getMemberReport.do").then((res)=>{
-            myChart1.setOption(
-                {
-                    title: {
-                        text: '会员数量'
-                    },
-                    tooltip: {},
-                    legend: {
-                        data:['会员数量']
-                    },
-                    xAxis: {
-                        data: res.data.data.months
-                    },
-                    yAxis: {
-                        type:'value'
-                    },
-                    series: [{
-                        name: '会员数量',
-                        type: 'line',
-                        data: res.data.data.memberCount
-                    }]
+<!-- 引入组件库 -->
+
+<script src="../js/axios-0.18.0.js"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart1 = echarts.init(document.getElementById('chart1'));
+
+    // 使用刚指定的配置项和数据显示图表。
+    //myChart.setOption(option);
+
+    axios.get("/report/getMemberReport.do").then((res) => {
+        myChart1.setOption(
+            {
+                title: {
+                    text: '会员数量'
+                },
+                tooltip: {},
+                legend: {
+                    data: ['会员数量']
+                },
+                xAxis: {
+                    data: res.data.data.months
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    name: '会员数量',
+                    type: 'line',
+                    data: res.data.data.memberCount
+                }]
+            });
+    });
+</script>
+
+
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            value: "",
+            startDate: "",
+            endDate: ""
+        },
+        methods: {
+            ScopeReport() {
+                // 基于准备好的dom，初始化echarts实例
+                var myChart2 = echarts.init(document.getElementById('chart1'));
+
+                // 使用刚指定的配置项和数据显示图表。
+                //myChart.setOption(option);
+
+                axios.get("/report/getMemberScopeReport.do?startDate=" + this.startDate + "&endDate=" + this.endDate).then((res) => {
+                    myChart2.setOption(
+                        {
+                            title: {
+                                text: '会员数量'
+                            },
+                            tooltip: {},
+                            legend: {
+                                data: ['会员数量']
+                            },
+                            xAxis: {
+                                data: res.data.data.months
+                            },
+                            yAxis: {
+                                type: 'value'
+                            },
+                            series: [{
+                                name: '会员数量',
+                                type: 'line',
+                                data: res.data.data.memberCount
+                            }]
+                        });
                 });
-        });
+            }
+        },
+        updated() {
+            var obj1 = this.value[0];
+            var obj2 = this.value[1];
 
-    </script>
+            this.startDate = obj1.getFullYear() + "-" + (obj1.getMonth() + 1);
+            this.endDate = obj2.getFullYear() + "-" + (obj2.getMonth() + 1)
+        },
+    })
+
+</script>
 </html>
