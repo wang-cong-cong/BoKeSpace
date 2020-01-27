@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author cong
@@ -55,11 +56,5 @@ public class MemberServiceImpl implements MemberService {
         }
         return integerList;
     }
-
-    /**
-     * 根据时间段查询查询会员数
-     * @param list
-     * @return
-     */
 
 }

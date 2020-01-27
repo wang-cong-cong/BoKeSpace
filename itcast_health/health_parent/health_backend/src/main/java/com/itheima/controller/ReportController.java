@@ -44,6 +44,13 @@ public class ReportController {
     @Reference
     private ReportService reportService;
 
+
+    /**
+     * 查询日期段区间的会员数
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     @RequestMapping("/getMemberScopeReport.do")
     public Result getMemberCount(String startDate,String endDate){
         try {

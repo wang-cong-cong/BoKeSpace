@@ -28,6 +28,4 @@
         select count(id) from t_member where regTime &gt;= #{value}
     </select>
 
-    <!--根据时间段查询人数-->
-
 </mapper>
